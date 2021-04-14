@@ -40,20 +40,27 @@ class TasksController < ApplicationController
 
     # DELETE
     def delete
-        puts tasks_delete[:task]
-        render json: {message: "asd"}
+        puts delete_params
+        tasks = Task.where(user_id: @user.id, id: delete_params) 
+        if  tasks.present? && tasks.destroy_all
+            render json: {message: "tasks deleted"}
+        else
+            render json: {error: "something went wrong"}
+        end
     end
 
 
 
     private
-    
-    def tasks_delete
-        params.require(:task).permit(:id,:task)
-    end  
-
-    def task_params
-      params.permit(:status, :description, :title,:deadline,:id)
+    def delete_params
+        params.require(:ids)
     end
+    
+        
+    def task_params
+        params.permit(:status, :description, :title,:deadline,:id)
+    end
+        
+    
 
 end

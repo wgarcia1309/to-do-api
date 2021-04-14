@@ -29,7 +29,7 @@ class UsersController < ApplicationController
       if  @user.update(user_params)
         render json: {user: @user}
       else
-        render json: {error: "something went wrong"}
+        render json: {error: "Something went wrong"}
       end
     end
   
@@ -37,7 +37,13 @@ class UsersController < ApplicationController
     def auto_login
       render json: @user
     end
-  
+     
+    def recovery
+      user = User.find_by(email: params[:email])
+      PasswordJob.perform_later(user)
+      render json:{message:"If the email exist we'll send a link to reset the password"}
+    end
+
     private
 
     def user_params
