@@ -40,7 +40,9 @@ class UsersController < ApplicationController
      
     def recovery
       user = User.find_by(email: params[:email])
-      PasswordJob.perform_later(user)
+      if user.present?
+        PasswordJob.perform_later(user)
+      end
       render json:{message:"If the email exist we'll send a link to reset the password"}
     end
 
