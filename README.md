@@ -1,24 +1,33 @@
-# README
+# to-do-api 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
+This is an API developed in ruby that allows you to let you create user an each user can create task with the status ```TO DO, DOING, DONE``` 
 * Configuration
 
-* Database creation
+  Delete the master.key and credentials.yml.enc files
+  ```
+  |-...
+  |-config
+    |-credentials.yml.enc
+    |-master.key
+  |-...
+  ```
+  run
+  ```sh
+  
+    rails credentials:edit
+  ```
+    and configure the credentials
+```YML
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+  development:
+    delivery_method: :smtp
+    smtp_settings: {
+      user_name: YOUR_USERNAME,
+      password: YOUR_PASSWORD,
+      address: ADDRESS,
+      domain: DOMAIN,
+      port: PORT
+    }
+    queue_adapter: QUEUE_ADAPTER
+    secret: YOUR_SECRECT
+```
